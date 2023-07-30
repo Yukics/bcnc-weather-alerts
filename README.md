@@ -15,7 +15,7 @@
     git clone https://github.com/Yukics/bcnc-weather-alerts.git
     ```
 
-2. Configurar los parámetros descritos en el .env (`cp .env_tes .env`), se trata de el token de la api y url de [weatherapi.com](https://www.weatherapi.com/) y [webhook de Discord](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) al que mandaremos los mensajes. Y también configurar las reglas de alertas, ejemplo en `./conf/main.yaml` o más abajo en el readme.Además del [nivel de verbosity del log](https://docs.python.org/3/howto/logging.html#logging-levels:~:text=suit%20their%20requirements.-,Logging%20Levels,-%C2%B6).
+2. Configurar los parámetros descritos en el .env (`cp .env_tes .env`), se trata de el token de la api y url de [weatherapi.com](https://www.weatherapi.com/) y [webhook de Discord](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) al que mandaremos los mensajes. Y también configurar las reglas de alertas, ejemplo en `./conf/main.yaml` o más abajo en el readme. Además del [nivel de verbosity del log](https://docs.python.org/3/howto/logging.html#logging-levels:~:text=suit%20their%20requirements.-,Logging%20Levels,-%C2%B6).
 
 3. Ejecutar
 

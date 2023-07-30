@@ -9,7 +9,7 @@ def main():
     # Logging implementation
     logs.setupLogging()
 
-    # Getting vars
+    # Getting vars (example if needed to add defaults)
     env_vars = {
         "api_key": os.getenv('API_KEY') if os.getenv('API_KEY') else 'f5db08e472cb4b4fb5a191058233007',
         "webhook": os.getenv('DISCORD_WEBHOOK') if os.getenv('DISCORD_WEBHOOK') else 'https://discord.com/api/webhooks/1135292977342849127/AE1J-o917s3KVtTnu18KdUkYNRAIDUc17J5Nd3uBtG70yMN58Pdm8cVBYyK5qq22Lblm',

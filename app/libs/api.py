@@ -13,7 +13,7 @@ def getForecast(api_key, location):
 def willRain(forecast):
     
     time_rain = [] 
-    
+    # List of hour that will rain on a day
     for hour in forecast['forecast']['forecastday'][0]['hour']:
         if hour['will_it_rain'] == 1:
             time_rain.append(hour['time'])
