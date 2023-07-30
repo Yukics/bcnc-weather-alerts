@@ -1,0 +1,15 @@
+- name: Reglas Alejo
+  unit: "C" # C for celsius F for Farenheit
+  location: "Palma"
+  alerts:
+    max_temp: 30
+    min_temp: 14
+    rain: true # Alert when might rain
+
+- name: Reglas 2a residencia
+  unit: "C"
+  location: "Madrid"
+  alerts:
+    max_temp: 36
+    min_temp: 10
+    rain: true

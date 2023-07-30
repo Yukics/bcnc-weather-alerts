@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  weather-alert:
+    env_file:
+      - .env
+    build: .
+    volumes:
+      - ./app:/app
