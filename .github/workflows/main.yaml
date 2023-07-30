@@ -1,0 +1,20 @@
+name: CICD
+
+# Cuando se haga un push a main o un pull request hacia main
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: [self-hosted]
+    steps:
+      - name: Building Image again and deploying it
+        run: |
+          cd /docker/bcnc-weather-alerts
+          git pull
+          docker compose build --no-cache
+          docker compose up -d --force-recreate
+    # TODO check if deploy is fine, else recreate with lastest stable version
