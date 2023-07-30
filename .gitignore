@@ -1,0 +1,5 @@
+.env
+logs
+Lib
+libs/__pycache__
+*.log
