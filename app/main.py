@@ -30,57 +30,62 @@ def main():
 
 
         for rule in conf_loaded:
-            status = api.getForecast(env_vars['api_key'], rule['location'])
-            
-            # definition of temp units
-            default_temp_unit = "temp_c"
-            if rule['unit'] != "c" and rule['unit'] != "C":
-                default_temp_unit = "temp_f"
+            try:
+                status = api.getForecast(env_vars['api_key'], rule['location'])
+                
+                # definition of temp units
+                default_temp_unit = "temp_c"
+                if rule['unit'] != "c" and rule['unit'] != "C":
+                    default_temp_unit = "temp_f"
 
-            # max temps
-            if status['current'][default_temp_unit] >= rule['alerts']['max_temp']:
-                logging.info("Triggering max temp alert for rule {}".format(rule['name']))
-                api.sendMessage(
-                    env_vars['webhook'], 
-                    "[ALERTA] La temperatura ha superado el umbral {0} actualmente para la localización {1} estamos a {2}º {3}".format(
-                        rule['alerts']['max_temp'],
-                        rule['location'],
-                        status['current'][default_temp_unit],
-                        rule['unit']
-                        )
-                )
-            # min temps
-            if status['current'][default_temp_unit] <= rule['alerts']['min_temp']:
-                logging.info("Triggering min temp alert for rule {}".format(rule['name']))
-                api.sendMessage(
-                    env_vars['webhook'], 
-                    "[ALERTA] La temperatura ha disminuido del umbral {0} actualmente para la localización {1} estamos a {2}º {3}".format(
-                        rule['alerts']['min_temp'],
-                        rule['location'],
-                        status['current'][default_temp_unit],
-                        rule['unit']
-                        )
-                )
-
-            time.sleep(1) # Due to API ratelimit
-
-            # rain
-            if rule['alerts']['rain']:
-                will_rain = api.willRain(status)
-                if will_rain:
-                    logging.info("Triggering rain alert for rule {}".format(rule['name']))
+                # max temps
+                if status['current'][default_temp_unit] >= rule['alerts']['max_temp']:
+                    logging.info("Triggering max temp alert for rule {}".format(rule['name']))
                     api.sendMessage(
                         env_vars['webhook'], 
-                        "[ALERTA] Va a llover en {0} desde las {1} hasta {2}".format(
+                        "[ALERTA] La temperatura ha superado el umbral {0} actualmente para la localización {1} estamos a {2}º {3}".format(
+                            rule['alerts']['max_temp'],
                             rule['location'],
-                            will_rain[0],
-                            will_rain[-1]
-                        )
+                            status['current'][default_temp_unit],
+                            rule['unit']
+                            )
+                    )
+                # min temps
+                if status['current'][default_temp_unit] <= rule['alerts']['min_temp']:
+                    logging.info("Triggering min temp alert for rule {}".format(rule['name']))
+                    api.sendMessage(
+                        env_vars['webhook'], 
+                        "[ALERTA] La temperatura ha disminuido del umbral {0} actualmente para la localización {1} estamos a {2}º {3}".format(
+                            rule['alerts']['min_temp'],
+                            rule['location'],
+                            status['current'][default_temp_unit],
+                            rule['unit']
+                            )
                     )
 
-                    print(will_rain)
+                time.sleep(1) # Due to API ratelimit
 
-            time.sleep(1) # Due to API ratelimit
+                # rain
+                if rule['alerts']['rain']:
+                    will_rain = api.willRain(status)
+                    if will_rain:
+                        logging.info("Triggering rain alert for rule {}".format(rule['name']))
+                        api.sendMessage(
+                            env_vars['webhook'], 
+                            "[ALERTA] Va a llover en {0} desde las {1} hasta {2}".format(
+                                rule['location'],
+                                will_rain[0],
+                                will_rain[-1]
+                            )
+                        )
+
+                        print(will_rain)
+
+                time.sleep(1) # Due to API ratelimit
+            
+            except:
+                logging.warning(status)
+                logging.error("Was not possible to get forecast. Error:", Exception)
 
         time.sleep(env_vars['check_rate']-2)
 
