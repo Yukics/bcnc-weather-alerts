@@ -41,6 +41,10 @@ El fichero de configuración es una array en .yaml que describe la siguiente est
 
 Con tal de afinar la localización deseada, os invito a hacer las pruebas a través de la herramienta de [weatherapi.com](https://www.weatherapi.com/api-explorer.aspx)
 
+## Mejoras
+
++ Que tenga en cuenta las alertas ya enviadas. Y no duplique mensajes
+
 ## Reference
 
 + [Wheather API Docs](https://www.weatherapi.com/docs/)
